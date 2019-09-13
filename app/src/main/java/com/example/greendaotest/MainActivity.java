@@ -11,13 +11,13 @@ import com.example.greendaotest.db.bean.ErrorMo;
 import java.util.ArrayList;
 
 /**
- * v.1.1.2注释
+ * v1.1.1注释
  */
 public class MainActivity extends AppCompatActivity {
     private final String TAG = MainActivity.class.getSimpleName();
 
     /**
-     * v.1.1.2注释
+     * v1.1.1注释
      * @param savedInstanceState
      */
     @Override
