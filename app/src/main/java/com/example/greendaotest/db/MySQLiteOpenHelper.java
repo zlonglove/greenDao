@@ -31,9 +31,8 @@ public class MySQLiteOpenHelper extends DaoMaster.OpenHelper {
     @Override
     public void onUpgrade(Database db, int oldVersion, int newVersion) {
         Log.i(TAG,"数据库更新");
-        //具体的数据转移在MigrationHelper2类中
         /**
-         *  将db传入     将gen目录下的所有的Dao.类传入
+         *  将db传入 将所有的Dao.类传入
          */
         MigrationHelper2.migrate(db, UserInfoDao.class, ErrorMoDao.class);
     }
