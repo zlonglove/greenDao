@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         errorMo.newErrorFlag = true;
         errorMo.time = "2019/09/12 23:05";
         errorMo.errorType = 9;
+        errorMo.space1="space1";
         boolean b = DBManager.getInstance().saveError(errorMo);
         if (b) {
             Log.i(TAG, "--->入库成功");

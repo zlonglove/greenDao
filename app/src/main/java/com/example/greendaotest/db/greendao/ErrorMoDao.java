@@ -30,6 +30,7 @@ public class ErrorMoDao extends AbstractDao<ErrorMo, Long> {
         public final static Property ErrorInfo = new Property(3, String.class, "errorInfo", false, "ERROR_INFO");
         public final static Property Fixed = new Property(4, boolean.class, "fixed", false, "FIXED");
         public final static Property ErrorType = new Property(5, int.class, "errorType", false, "ERROR_TYPE");
+        public final static Property Space1 = new Property(6, String.class, "space1", false, "SPACE1");
     }
 
 
@@ -50,7 +51,8 @@ public class ErrorMoDao extends AbstractDao<ErrorMo, Long> {
                 "\"TIME\" TEXT," + // 2: time
                 "\"ERROR_INFO\" TEXT," + // 3: errorInfo
                 "\"FIXED\" INTEGER NOT NULL ," + // 4: fixed
-                "\"ERROR_TYPE\" INTEGER NOT NULL );"); // 5: errorType
+                "\"ERROR_TYPE\" INTEGER NOT NULL ," + // 5: errorType
+                "\"SPACE1\" TEXT);"); // 6: space1
     }
 
     /** Drops the underlying database table. */
@@ -76,6 +78,11 @@ public class ErrorMoDao extends AbstractDao<ErrorMo, Long> {
         }
         stmt.bindLong(5, entity.getFixed() ? 1L: 0L);
         stmt.bindLong(6, entity.getErrorType());
+ 
+        String space1 = entity.getSpace1();
+        if (space1 != null) {
+            stmt.bindString(7, space1);
+        }
     }
 
     @Override
@@ -95,6 +102,11 @@ public class ErrorMoDao extends AbstractDao<ErrorMo, Long> {
         }
         stmt.bindLong(5, entity.getFixed() ? 1L: 0L);
         stmt.bindLong(6, entity.getErrorType());
+ 
+        String space1 = entity.getSpace1();
+        if (space1 != null) {
+            stmt.bindString(7, space1);
+        }
     }
 
     @Override
@@ -110,7 +122,8 @@ public class ErrorMoDao extends AbstractDao<ErrorMo, Long> {
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // time
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // errorInfo
             cursor.getShort(offset + 4) != 0, // fixed
-            cursor.getInt(offset + 5) // errorType
+            cursor.getInt(offset + 5), // errorType
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6) // space1
         );
         return entity;
     }
@@ -123,6 +136,7 @@ public class ErrorMoDao extends AbstractDao<ErrorMo, Long> {
         entity.setErrorInfo(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setFixed(cursor.getShort(offset + 4) != 0);
         entity.setErrorType(cursor.getInt(offset + 5));
+        entity.setSpace1(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
      }
     
     @Override

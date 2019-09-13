@@ -17,6 +17,7 @@ public class ErrorMo implements Parcelable {
     public String errorInfo;
     public boolean fixed;
     public int errorType;
+    public String space1;
     @Override
     public int describeContents() {
         return 0;
@@ -92,17 +93,18 @@ public class ErrorMo implements Parcelable {
         this.errorType=in.readInt();
     }
 
-    @Generated(hash = 616074276)
+    @Generated(hash = 1565323390)
     public ErrorMo(long id, boolean newErrorFlag, String time, String errorInfo,
-            boolean fixed, int errorType) {
+            boolean fixed, int errorType, String space1) {
         this.id = id;
         this.newErrorFlag = newErrorFlag;
         this.time = time;
         this.errorInfo = errorInfo;
         this.fixed = fixed;
         this.errorType = errorType;
+        this.space1 = space1;
     }
-    
+
 
     public static final Creator<ErrorMo> CREATOR = new Creator<ErrorMo>() {
         public ErrorMo createFromParcel(Parcel source) {
@@ -123,5 +125,13 @@ public class ErrorMo implements Parcelable {
                 ", errorInfo='" + errorInfo + '\'' +
                 ", fixed=" + fixed +
                 '}';
+    }
+
+    public String getSpace1() {
+        return this.space1;
+    }
+
+    public void setSpace1(String space1) {
+        this.space1 = space1;
     }
 }
