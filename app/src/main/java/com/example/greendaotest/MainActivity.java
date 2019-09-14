@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.example.greendaotest.db.DBManager;
 import com.example.greendaotest.db.bean.ErrorMo;
