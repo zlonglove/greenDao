@@ -1,10 +1,10 @@
 package com.example.greendaotest;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.greendaotest.db.DBManager;
 import com.example.greendaotest.db.bean.ErrorMo;
@@ -77,6 +77,24 @@ public class MainActivity extends AppCompatActivity {
             OrderMo orderMo = new OrderMo(i, "this is" + i);
             MilkTeaOrderQueueManager.getInstance().addBean(orderMo);
         }
+        /*new Thread(new Runnable() {
+            @Override
+            public void run() {
+                SystemClock.sleep(10000);
+                *//**
+                 * 模仿有故障
+                 *//*
+                MilkTeaOrderQueueManager.getInstance().setHasError(true);
+
+                SystemClock.sleep(10000);
+                *//**
+                 * 故障解除
+                 *//*
+                if (MilkTeaOrderQueueManager.getInstance().isHasError()) {
+                    MilkTeaOrderQueueManager.getInstance().setHasError(false);
+                }
+            }
+        }).start();*/
     }
 
     public void beginOrder(View view) {

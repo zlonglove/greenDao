@@ -124,7 +124,7 @@ public class MilkTeaOrderQueueManager {
         return hasError;
     }
 
-    public boolean addBean(OrderMo bean) {
+    public boolean addBean(final OrderMo bean) {
         boolean add = false;
         if (null != bean && null != mQueue) {
             synchronized (MilkTeaOrderQueueManager.class) {
@@ -149,11 +149,22 @@ public class MilkTeaOrderQueueManager {
                 if (null != mListener) {
                     mListener.onItemAdd(bean);
                 }
-                while (!isInit) {
-                    SystemClock.sleep(100);
+                if (isInit) {
+                    Message message = mBlockLoopHandler.obtainMessage(11, bean);
+                    mBlockLoopHandler.sendMessage(message);
+                } else {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            while (!isInit) {
+                                Log.i(TAG, "--->not has init wait...");
+                                SystemClock.sleep(100);
+                            }
+                            Message message = mBlockLoopHandler.obtainMessage(11, bean);
+                            mBlockLoopHandler.sendMessage(message);
+                        }
+                    }).start();
                 }
-                Message message = mBlockLoopHandler.obtainMessage(11, bean);
-                mBlockLoopHandler.sendMessage(message);
             }
         }
         return add;
@@ -220,8 +231,8 @@ public class MilkTeaOrderQueueManager {
         return mQueue.isEmpty() ? 0 : mQueue.size();
     }
 
-    public QueueSizeChangeListener getmListener() {
-        return mListener;
+    public List<OrderMo> getQueue() {
+        return mQueue;
     }
 
     public void setmListener(QueueSizeChangeListener mListener) {
@@ -243,10 +254,6 @@ public class MilkTeaOrderQueueManager {
         void onMaking(OrderMo makingBean);
 
         void onOrderCancel(OrderMo cancelBean);
-    }
-
-    public List<OrderMo> getQueue() {
-        return mQueue;
     }
 
     public boolean makeMilkTea(final OrderMo orderMo) {
