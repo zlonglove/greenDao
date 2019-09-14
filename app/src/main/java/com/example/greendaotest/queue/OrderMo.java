@@ -1,7 +1,5 @@
 package com.example.greendaotest.queue;
 
-import androidx.annotation.NonNull;
-
 /**
  * 测试订单类
  */
